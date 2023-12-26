@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <style>
+      html {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      .bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: 0.5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+      }
+
+      .bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 4s;
+      }
+
+      .bg3 {
+        animation-duration: 5s;
+      }
+
+      @keyframes slide {
+        0% {
+          transform: translateX(-25%);
+        }
+
+        100% {
+          transform: translateX(25%);
+        }
+      }
+
+      nav {
+        background-color: #292929;
+        overflow: hidden;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .company-name {
+        font-family: "Helvetica", sans-serif;
+        font-size: 1.5em;
+        margin-left: 10px;
+      }
+
+      nav a {
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        transition: background-color 0.2s linear, color 0.2s linear;
+      }
+
+      nav a:hover {
+        background-color: #0d0d0d;
+        color: rgb(243, 76, 76);
+      }
+
+      header {
+        background-color: #292929;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      main {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+        transition: border-color 0.3s ease;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: #3498db;
+        outline: none;
+      }
+
+      button {
+        background-color: #3498db;
+        color: #fff;
+        padding: 15px 20px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #297fb8;
+      }
+
+      footer {
+        background-color: #f8002f;
+        background-image: linear-gradient(326deg, #f8002f 0%, #282828 74%);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      footer a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      footer a:hover {
+        text-decoration: none;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+      }
+
+      .footer-section {
+        max-width: 300px;
+        margin-bottom: 20px;
+        text-decoration: none;
+      }
+
+      .footer-section h3 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        color: #ddd;
+        text-decoration: none;
+      }
+
+      .footer-section p {
+        font-size: 1em;
+        text-decoration: none;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+        text-decoration: none;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 8px;
+        list-style: none;
+        text-decoration: none;
+      }
+
+      /* .social-icons a {
+            margin-right: 10px;
+            text-decoration: none;
+        } */
+
+      .social-icons {
+        display: flex;
+        margin-top: 10px;
+        margin-left: 70px;
+      }
+
+      .social-icons a {
+        margin-right: 10px;
+        text-decoration: none;
+        display: block;
+      }
+
+      .social-icons img {
+        width: 30px;
+        height: auto;
+        border-radius: 50%;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .social-icons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .social-icons a {
+          margin-right: 0;
+          margin-bottom: 5px;
+        }
+      }
+
+      .footer-bottom {
+        margin-top: 20px;
+        border-top: 1px solid #555;
+        padding-top: 10px;
+        font-size: 0.9em;
+        text-decoration: none;
+      }
+
+      .tp {
+        text-align: center;
+      }
+
+      @media only screen and (max-width: 600px) {
+        nav {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .company-name {
+          margin-left: 0;
+          margin-bottom: 10px;
+        }
+
+        nav a {
+          margin-bottom: 5px;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .footer-section {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <div class="company-name">Your Company Name</div>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+
+    <!-- <header>
+        
+    </header> -->
+
+    <main>
+      <h1 class="tp">Contact Us</h1>
+      <form name="submit-to-google-sheet">
+        <label for="Name">Your Name:</label>
+        <input type="text" name="Name" placeholder="Enter your name" required />
+
+        <label for="Email">Your Email:</label>
+        <input
+          type="email"
+          name="Email"
+          placeholder="Enter your email"
+          required
+        />
+
+        <label for="Message">Your Message:</label>
+        <textarea
+          name="Message"
+          rows="6"
+          placeholder="Enter your message"
+          required
+        ></textarea>
+
+        <button type="submit" class="btn btn2">Submit</button>
+      </form>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Us</h3>
+          <p>
+            Your Company is a leading provider of innovative solutions in the
+            field of resume analysis. We strive to help job seekers and
+            employers connect effectively.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect With Us</h3>
+          <p>
+            Follow us on social media for the latest updates and job-related
+            tips:
+          </p>
+          <div class="social-icons">
+            <a href="#" target="_blank"
+              ><img src="facebook.png" alt="Facebook"
+            /></a>
+            <a href="#" target="_blank"
+              ><img src="twitter.png" alt="Twitter"
+            /></a>
+            <a href="#" target="_blank"
+              ><img src="linkdein.png" alt="LinkedIn"
+            /></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 Your Company. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbxhcX6HAVNHU6V4_HdS13WRa5Vne_ejem_ceqNFoxijxOnClM3FmwkBunFhXIccSjOB2A/exec";
+      const form = document.forms["submit-to-google-sheet"];
+
+      const msg = document.getElementById("msg");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            msg.innerHTML = "Message Sent Successfully";
+            setTimeout(function () {
+              msg.innerHTML = "";
+            }, 5000);
+            form.reset();
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,305 @@
+
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ 
+   
+}
+:root{
+  --before-width :10px;
+}
+
+.main{
+    display: flex;
+    
+}
+
+.result{
+    flex: 1.6;
+
+    min-height: 100vh;
+}
+
+.resume{
+    flex:1;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 15px;
+    
+}
+
+.bg {
+    animation: slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+    bottom: 0;
+    left: -50%;
+    opacity: 0.5;
+    position: fixed;
+    right: -50%;
+    top: 0;
+    z-index: -1;
+  }
+
+  .bg2 {
+    animation-direction: alternate-reverse;
+    animation-duration: 4s;
+  }
+
+  .bg3 {
+    animation-duration: 5s;
+  }
+  @keyframes slide {
+    0% {
+      transform: translateX(-25%);
+    }
+
+    100% {
+      transform: translateX(25%);
+    }
+  }
+
+
+  .analysis{
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    flex-direction: column;
+
+
+    .score{
+        width: 200px;
+        height: 200px;
+       /* background: conic-gradient(rgb(21, 131, 205) 90deg,rgb(194, 194, 194) 0deg); */
+       border-radius: 50%;
+       margin: 20px;
+       position: relative;
+       display: flex;
+       align-items:center ;
+       justify-content: center;
+       
+       &::before{
+        content: '';
+        position: absolute;
+        
+        
+        background-color: white;
+        width: 87%;
+        height: 87%;
+        border-radius: 50%;
+
+
+       }
+       
+    }
+
+  }
+
+  .bar
+  {
+    position: relative;
+  }
+
+
+  .head-text{
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 10px;
+    text-transform: uppercase;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  }
+
+
+  .imp{
+    display: grid;
+    grid-template-areas: 
+    'an sec sec'
+    'single sec sec'
+    ;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 3fr;
+    
+
+
+    
+   
+  }
+  .analysis{
+    grid-area: an;
+  }
+
+  .single{
+    background-color: rgb(255, 255, 255);
+    height:500px;
+    width: 95%;
+    grid-area: sec;
+    border-radius: 15px;
+    margin: 10px;
+    grid-area: single;
+
+    
+  }
+  .sec{
+    background-color: rgb(255, 255, 255);
+    min-height:auto;
+    width: 95%;
+    grid-area: sec;
+    border-radius: 15px;
+    margin: 10px;
+  }
+
+
+  .single{
+    display: flex;
+    
+    
+    flex-direction: column;
+   
+    
+    .level{
+      width: 100%;
+      padding: 10px;
+      margin: 10px;
+      
+    
+      .label{
+
+        margin-bottom: 5px;
+       
+      }
+
+
+      .rel{
+
+        width: 80%;
+        background-color: rgb(215, 215, 215);
+        height: 15px;
+        position: relative;
+
+        border-radius: 15px;
+    
+      }
+    }
+
+
+  }
+  .rel::before{
+    
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: rgb(126, 240, 95);
+      height: 100%;
+      width: var(--before-width);
+      border-radius: 15px;
+    
+  }
+
+  
+
+.summary{
+  margin: 20px;
+  padding: 20px;
+  padding-bottom: 40px;
+  border-radius: 15px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border-left: orange 7px solid;
+
+  .smresult{
+    display: block;
+    font-size: 1.5rem;
+    margin:20px 0px;
+    font-weight: bold;
+  }
+}
+
+.keypoint{
+  cursor: pointer;
+  margin: 20px;
+  padding: 20px;
+  padding-bottom: 40px;
+  border-radius: 15px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border-left: rgb(115, 173, 217) 7px solid;
+
+}
+
+.keypoint .lb{
+ display: flex;
+ justify-content: space-between;
+ min-height: 30px;
+}
+
+
+.points{
+  display:none ;
+  margin-left: 20px;
+}
+.points span{
+  display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: flex;
+}
+span img{
+  margin-right: 10px;
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+
+  .resume{
+    display: none;
+  }
+}
+
+
+@media only screen and (max-width: 800px){
+  .points span{
+    font-size:15px ;
+  }
+}
+
+
+@media only screen and (max-width: 670px){
+  .level{
+    overflow: hidden;
+  }
+  .imp{
+    display: grid;
+    grid-template-areas: 
+    'an '
+    'single '
+    'sec'
+    ;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    margin: 15px;
+    
+    
+
+
+    
+   
+  }
+  .analysis{
+    margin: auto;
+  }
+  .single{
+   
+
+    overflow: hidden;
+  }
+  .sec{
+   
+  }
+}

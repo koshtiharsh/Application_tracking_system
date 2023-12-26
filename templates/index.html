@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        nav {
+            background-color: #292929;
+            overflow: hidden;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .company-name {
+            font-family: 'Helvetica', sans-serif;
+            font-size: 1.5em;
+            margin-left: 10px;
+        }
+
+        nav a {
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.2s linear, color 0.2s linear;
+        }
+
+        nav a:hover {
+            background-color: #0d0d0d;
+            color: rgb(243, 76, 76);
+        }
+
+        .bg {
+            animation: slide 3s ease-in-out infinite alternate;
+            background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+            bottom: 0;
+            left: -50%;
+            opacity: .5;
+            position: fixed;
+            right: -50%;
+            top: 0;
+            z-index: -1;
+        }
+
+        .bg2 {
+            animation-direction: alternate-reverse;
+            animation-duration: 4s;
+        }
+
+        .bg3 {
+            animation-duration: 5s;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(-25%);
+            }
+
+            100% {
+                transform: translateX(25%);
+            }
+        }
+
+        .content {
+            background-color: #aff667;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 50px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Arial', sans-serif;
+            color: #050505;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: #000000;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #297fb8;
+        }
+
+        #file-upload-container {
+            border: 2px solid #000000;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            background-color: #f8f8f8;
+        }
+
+        #drag-icon {
+            display: block;
+            margin: 0 auto;
+            width: 78px;
+            height: 50px;
+            background-image: url("{{ url_for('static', filename='drag (1).png') }}");
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-bottom: 10px;
+        }
+
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .text-loader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .loader {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            background-color: rgba(0, 0, 0, 0.5);
+            transform: rotate(45deg);
+            overflow: hidden;
+        }
+
+        .loader:after {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            margin: auto;
+            background: #222b32;
+        }
+
+        .loader:before {
+            content: '';
+            position: absolute;
+            inset: -15px;
+            margin: auto;
+            background: #de3500;
+            animation: diamondLoader 2s linear infinite;
+        }
+
+        @keyframes diamondLoader {
+
+            0%,
+            10% {
+                transform: translate(-64px, -64px) rotate(-45deg);
+            }
+
+            90%,
+            100% {
+                transform: translate(0px, 0px) rotate(-45deg);
+            }
+        }
+
+        .steps {
+            /* max-width: 800px; */
+            width: auto;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: justify;
+            /* background-color: #6940d2; */
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px; */
+            opacity: 0;
+        }
+
+        .steps span {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            color: #000000;
+            opacity: 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #f8002f;
+            background-image: linear-gradient(326deg, #f8002f 0%, #282828 74%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+            /* Remove underline on hover */
+        }
+
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+        }
+
+        .footer-section {
+            max-width: 300px;
+            margin-bottom: 20px;
+            text-decoration: none;
+
+        }
+
+        .footer-section h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #ddd;
+            text-decoration: none;
+        }
+
+        .footer-section p {
+            font-size: 1em;
+            text-decoration: none;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            text-decoration: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            display: flex;
+            margin-top: 10px;
+            margin-left: 70px;
+        }
+
+        .social-icons a {
+            margin-right: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .social-icons img {
+            width: 30px;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .social-icons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-icons a {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+        }
+
+        .footer-bottom {
+            margin-top: 20px;
+            border-top: 1px solid #555;
+            padding-top: 10px;
+            font-size: 0.9em;
+            text-decoration: none;
+        }
+
+
+        @media only screen and (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .company-name {
+                margin-top: 10px;
+            }
+
+            nav a {
+                margin: 5px 0;
+            }
+
+            .content {
+                max-width: 100%;
+                margin: 20px;
+            }
+
+            .steps {
+                width: 100%;
+            }
+
+            .steps span {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="company-name">Your Company Name</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </nav>
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    <div class="content">
+        <h1><span id="element"></span></h1>
+        <h3>Upload Your Resume</h3>
+        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+            <label for="file-upload" style="display: none;">
+                Upload Your Resume:
+                <input type="file" id="file-upload" name="file" onchange="handleFileSelect(event)" required />
+            </label>
+            <div id="file-upload-container" onclick="openFileUploader()">
+                <span id="drag-icon"></span>
+                Drag and drop here or click to <span class="browse">browse</span>.
+            </div>
+            <br>
+            <label for="job-description">
+                Enter Job Description:
+                <textarea id="job-description" name="jobDescription" rows="4" cols="50" required></textarea>
+            </label>
+            <br>
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+    </div>
+
+    <div class="steps">
+        <span>Step 1: Browse Or Drag and drop Your Resume. 📄📃</span>
+        <span>Step 2: Enter the Job Description. 📝🖊️</span>
+        <span>Step 3: Submit it that's all. 👍✔️</span>
+        <span>Step 4: Now Wait for the Results All the best 👍👍</span>
+    </div>
+
+    <div class="loader-container" id="loader-container">
+        <div class="text-loader">
+            <div class="loader"></div>
+            <p>
+            <h1>Analyzing <span id="head"></span></h1>
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Your Company is a leading provider of innovative solutions in the field of resume analysis. We strive
+                    to help job seekers and employers connect effectively.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for the latest updates and job-related tips:</p>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><img src="{{ url_for('static', filename='facebook.png') }}" alt="Facebook"></a>
+                    <a href="#" target="_blank"><img src="{{ url_for('static', filename='twitter.png') }}" alt="Twitter"></a>
+                    <a href="#" target="_blank"><img src="{{ url_for('static', filename='linkdein.png') }}" alt="LinkedIn"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Your Company. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        function openFileUploader() {
+            document.getElementById('file-upload').click();
+        }
+
+        function handleFileSelect(event) {
+            var fileName = event.target.files[0].name;
+            document.getElementById('file-upload-container').innerHTML = 'Selected file: ' + fileName;
+        }
+
+        function submitForm() {
+            var form = document.getElementById('uploadForm');
+            if (form.checkValidity()) {
+                // Perform your animation or other actions
+
+                document.getElementById('loader-container').style.display = 'flex';
+
+                setTimeout(function () {
+                    // Simulated backend task logic
+                    // Remove the alert or replace it with your actual logic
+                        form.submit()
+                    // After completion, hide the loader
+                    document.getElementById('loader-container').style.display = 'none';
+                }, 10000);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var steps = document.querySelectorAll('.steps span');
+            var delay = 1000;
+
+            steps.forEach(function (step, index) {
+                setTimeout(function () {
+                    step.style.opacity = '1';
+                }, index * delay);
+            });
+
+            document.querySelector('.steps').style.opacity = '1';
+        });
+    </script>
+
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed('#element', {
+            strings: ['ATS Resume Analyzer'],
+            typeSpeed: 50,
+            loop: 70,
+        });
+    </script>
+
+    <!-- loader -->
+
+    <script>
+        var typed = new Typed('#head', {
+            strings: ['Resume,', 'Heading Section,', 'Word Count,', 'Skills'],
+            typeSpeed: 50,
+            loop: 70,
+        });
+    </script>
+
+</body>
+
+</html>
