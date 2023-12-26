@@ -43,5 +43,5 @@ urllib3==2.1.0
 wasabi==1.1.2
 weasel==0.3.4
 Werkzeug==3.0.1
-gunicorn==19.7.1
+Gunicorn==19.7.1
 
