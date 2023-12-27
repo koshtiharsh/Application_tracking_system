@@ -92,7 +92,7 @@ def processing(resume_copy, choice, jobDesc):
                 # print(f"The file '{pdf_file}' was not found.")
                 return []
 
-        extract_txt = extract_text_from_pdf("./uploads/" + resume_copy)
+        extract_txt = extract_text_from_pdf("./static/uploads/" + resume_copy)
         fin_txt = []  # Initialize an empty list outside the loop
         for txt in extract_txt:
             txt = txt.lower()
