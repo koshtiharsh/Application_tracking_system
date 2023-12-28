@@ -60,6 +60,8 @@ def upload_file():
         hsp = str(int(hs)) + "%"
         ssp = str(int(ss)) + "%"
         wcp = str(int(wc)) + "%"
+        pdfFileName = file.filename
+
 
         print(match_soft)
         return render_template(
