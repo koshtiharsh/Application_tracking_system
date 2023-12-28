@@ -75,6 +75,8 @@ def upload_file():
             match_soft=list(set(match_soft)),
             missing_soft=missing_soft,
             word_count=word_count,
+            pdfFileName=pdfFileName,
+
         )
     else:
         return "Invalid file format! Allowed formats: pdf, docx"
