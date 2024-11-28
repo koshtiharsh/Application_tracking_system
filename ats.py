@@ -10,13 +10,57 @@ import nltk
 import spacy
 import string
 import re
+import os
 from nltk.corpus import stopwords
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.tokenize import word_tokenize
+from grammarcheck.ats_grammar_check import check_and_correct_pdf
 
+# nltk.download('punkt')
+# nltk.download('stopwords')
+# nltk.download('averaged_perceptron_tagger')
+# nltk.download('maxent_ne_chunker')
+# nltk.download('words')
+# nltk.download('punkt_tab')
 
-def processing(resume_copy, choice, jobDesc):
+jobDesc = { 'mern':'''We are looking for a highly skilled MERN Stack Developer to join our development team. The ideal candidate will have experience building scalable web applications using MongoDB, Express.js, React, and Node.js. You will be responsible for developing and maintaining full-stack applications, from designing database architecture to implementing the frontend and backend logic.
+
+Responsibilities:
+
+Design, develop, and maintain robust, scalable web applications using the MERN stack (MongoDB, Express.js, React, Node.js).
+Build and manage APIs, microservices, and RESTful services.
+Collaborate with the UI/UX team to create user-friendly, visually appealing interfaces.
+Write clean, maintainable, and efficient code, following best practices and industry standards.
+Manage databases and optimize application performance.
+Debug and resolve technical issues and identify areas for improvement.
+Work closely with project managers and other team members to meet deadlines and deliver high-quality features.
+Test and deploy applications using CI/CD pipelines.
+Ensure the security of web applications by implementing secure coding practices.
+Stay updated with the latest technologies and best practices in web development.
+Requirements:
+
+Proven experience as a MERN Stack Developer or similar role.
+Strong proficiency in JavaScript, with hands-on experience in React.js, Node.js, Express.js, and MongoDB.
+Experience with front-end development using React, including hooks, state management, and component lifecycles.
+Knowledge of back-end technologies and RESTful API development using Node.js and Express.js.
+Familiarity with database management, especially MongoDB, including database schema design and performance optimization.
+Strong understanding of HTML5, CSS3, and modern JavaScript (ES6+).
+Experience with version control tools such as Git.
+Knowledge of API integration (e.g., third-party APIs, authentication).
+Familiarity with testing frameworks such as Jest, Mocha, or similar.
+Experience with deployment on cloud platforms like AWS, Azure, or Heroku is a plus.
+Good problem-solving skills and attention to detail.
+Ability to work in a fast-paced, collaborative environment.
+Preferred Qualifications:
+
+Experience with state management libraries like Redux or Context API.
+Familiarity with Next.js and SSR (Server-Side Rendering) is a plus.
+Understanding of Agile methodologies and tools like Jira.
+Knowledge of WebSockets and real-time data handling.
+Prior experience with CI/CD pipelines and DevOps practices.'''}
+
+def processing(resume_copy, choice, role):
     # preprocessing
     def clean_text(text):
         text = re.sub(r"[^a-zA-Z\s]", "", text)
@@ -73,7 +117,7 @@ def processing(resume_copy, choice, jobDesc):
     # print("2. Docx")
     # ch = int(input("Enter the number: "))
     # job_des = input("Enter Job Description: ")
-    job_des = jobDesc
+    job_des = jobDesc.get(role)
     job_des = job_des.lower()
     error = False
 
@@ -92,7 +136,7 @@ def processing(resume_copy, choice, jobDesc):
                 # print(f"The file '{pdf_file}' was not found.")
                 return []
 
-        extract_txt = extract_text_from_pdf("./uploads/" + resume_copy)
+        extract_txt = extract_text_from_pdf("./static/uploads/" + resume_copy)
         fin_txt = []  # Initialize an empty list outside the loop
         for txt in extract_txt:
             txt = txt.lower()
@@ -100,7 +144,7 @@ def processing(resume_copy, choice, jobDesc):
             fin_txt.append(txt)
 
     elif ch == 2:
-        resume = docx2txt.process("res.docx")
+        resume = docx2txt.process(".static/uploads/" + resume_copy)
         resume = resume.lower()
         # print(resume)
 
@@ -638,8 +682,13 @@ def processing(resume_copy, choice, jobDesc):
         soft_skill_score = no_match_soft / desc_skill_soft * 100
     # print("skill score", soft_skill_score)
     # print("count score", word_count_score)
+    base_name, extension = os.path.splitext(resume_copy)
 
+# Append "-1" to the base name
+    new_file_name = f"{base_name}-1{extension}"
     # Now you can use the soft_skills_list in your Python code
+    corrections= check_and_correct_pdf("./static/uploads/" + resume_copy, './static/uploads/'+new_file_name)
+
 
     final_score = (
         skill_score + section_score + word_count_score + soft_skill_score
@@ -658,7 +707,8 @@ def processing(resume_copy, choice, jobDesc):
         soft_skill_score,
         word_count_score,
         section_score,
+        corrections
     )
 
 
-# processing("Resume (1).pdf", 1, "python ,angular")
+# processing("pt.pdf", 1, "html ,angular")

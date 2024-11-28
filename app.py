@@ -30,14 +30,17 @@ def contact():
     return render_template("contact.html")
 
 
+
 @app.route("/upload", methods=["POST"])
 def upload_file():
+    print(request)
     if "file" not in request.files:
         return redirect(request.url)
     file = request.files["file"]
-    desc = request.form["jobDescription"]
+    role = request.form["role"]
     if file.filename == "":
         return redirect(request.url)
+    print(file.filename)
     if file and allowed_file(file.filename):
         filename = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
         file.save(filename)
@@ -55,13 +58,19 @@ def upload_file():
             ss,
             wc,
             sc,
-        ) = ats.processing(file.filename, 1, desc)
+            corrections
+        ) = ats.processing(file.filename, 1, role)
         struct = str(int(sc)) + "%"
         hsp = str(int(hs)) + "%"
         ssp = str(int(ss)) + "%"
         wcp = str(int(wc)) + "%"
+        pdfFileName = file.filename
+        base_name, extension = os.path.splitext(pdfFileName)
 
-        print(match_soft)
+# Append "-1" to the base name
+        pdfFileName = f"{base_name}-1{extension}"
+
+        print(word_count)
         return render_template(
             "result.html",
             final=int(score),
@@ -70,15 +79,17 @@ def upload_file():
             ssp=ssp,
             wcp=wcp,
             sections=sections,
-            match_hard=match_hard,
+            match_hard=list(set(match_hard)),
             missing_hard=missing_hard,
             match_soft=list(set(match_soft)),
             missing_soft=missing_soft,
             word_count=word_count,
+            pdfFileName=pdfFileName,
+            corrections =corrections
         )
     else:
         return "Invalid file format! Allowed formats: pdf, docx"
-
-
+    
+    
 if __name__ == "__main__":
     app.run(debug=True)

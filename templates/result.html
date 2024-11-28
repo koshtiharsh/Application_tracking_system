@@ -16,6 +16,314 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <style>
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ 
+   
+}
+:root{
+  --before-width :10px;
+}
+
+.main{
+  padding: 2rem;
+    display: flex;
+    
+}
+
+.result{
+    flex: 1.6;
+
+    min-height: 100vh;
+}
+
+.resume{
+    flex:1;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 15px;
+    
+}
+
+.bg {
+    background-color: rgb(225 225 225);
+
+    bottom: 0;
+    left: -50%;
+    opacity: 0.5;
+    position: fixed;
+    right: -50%;
+    top: 0;
+    z-index: -1;
+  }
+
+  .bg2 {
+    animation-direction: alternate-reverse;
+    animation-duration: 4s;
+  }
+
+  .bg3 {
+    animation-duration: 5s;
+  }
+  @keyframes slide {
+    0% {
+      transform: translateX(-25%);
+    }
+
+    100% {
+      transform: translateX(25%);
+    }
+  }
+
+
+  .analysis{
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    flex-direction: column;
+
+
+    .score{
+        width: 200px;
+        height: 200px;
+       /* background: conic-gradient(rgb(21, 131, 205) 90deg,rgb(194, 194, 194) 0deg); */
+       border-radius: 50%;
+       margin: 20px;
+       position: relative;
+       display: flex;
+       align-items:center ;
+       justify-content: center;
+       
+       &::before{
+        content: '';
+        position: absolute;
+        
+        
+        background-color: white;
+        width: 87%;
+        height: 87%;
+        border-radius: 50%;
+
+
+       }
+       
+    }
+
+  }
+
+  .bar
+  {
+    position: relative;
+  }
+
+
+  .head-text{
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 10px;
+    text-transform: uppercase;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  }
+
+
+  .imp{
+    display: grid;
+    grid-template-areas: 
+    'an sec sec'
+    'single sec sec'
+    ;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 3fr;
+    
+
+
+    
+   
+  }
+  .analysis{
+    grid-area: an;
+  }
+
+  .single{
+    background-color: rgb(255, 255, 255);
+    height:500px;
+    width: 95%;
+    grid-area: sec;
+    border-radius: 15px;
+    margin: 10px;
+    grid-area: single;
+
+    
+  }
+  .sec{
+    background-color: rgb(255, 255, 255);
+    min-height:auto;
+    width: 95%;
+    grid-area: sec;
+    border-radius: 15px;
+    margin: 10px;
+  }
+
+
+  .single{
+    display: flex;
+    
+    
+    flex-direction: column;
+   
+    
+    .level{
+      width: 100%;
+      padding: 10px;
+      margin: 10px;
+      
+    
+      .label{
+
+        margin-bottom: 5px;
+       
+      }
+
+
+      .rel{
+
+        width: 80%;
+        background-color: rgb(215, 215, 215);
+        height: 15px;
+        position: relative;
+
+        border-radius: 15px;
+    
+      }
+    }
+
+
+  }
+  .rel::before{
+    
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: rgb(126, 240, 95);
+      height: 100%;
+      width: var(--before-width);
+      border-radius: 15px;
+    
+  }
+
+  
+
+.summary{
+  margin: 20px;
+  padding: 20px;
+  padding-bottom: 40px;
+  border-radius: 15px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border-left: orange 7px solid;
+
+  .smresult{
+    display: block;
+    font-size: 1.5rem;
+    margin:20px 0px;
+    font-weight: bold;
+  }
+}
+
+.keypoint{
+  cursor: pointer;
+  margin: 20px;
+  padding: 20px;
+  padding-bottom: 40px;
+  border-radius: 15px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border-left: rgb(115, 173, 217) 7px solid;
+
+}
+
+.keypoint .lb{
+ display: flex;
+ justify-content: space-between;
+ min-height: 30px;
+}
+
+
+.points{
+  display:none ;
+  margin-left: 20px;
+}
+.points span{
+  display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: flex;
+}
+span img{
+  margin-right: 10px;
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+
+  .resume{
+    display: none;
+  }
+}
+
+
+@media only screen and (max-width: 800px){
+  .points span{
+    font-size:15px ;
+  }
+}
+
+
+@media only screen and (max-width: 670px){
+  .level{
+    overflow: hidden;
+  }
+  .imp{
+    display: grid;
+    grid-template-areas: 
+    'an '
+    'single '
+    'sec'
+    ;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    margin: 15px;
+    
+    
+
+
+    
+   
+  }
+  .analysis{
+    margin: auto;
+  }
+  .single{
+   
+
+    overflow: hidden;
+  }
+  .sec{
+   
+  }
+}
       #Structure::before {
         width: {{struct}};
       }
@@ -29,9 +337,14 @@
       #wc::before{
         width: {{wcp}};
       }
+
+
+      
+
+
     </style>
   </head>
-  <body>
+  <body id="#resume">
     <div class="main">
       <section class="result">
         <div class="bg"></div>
@@ -79,6 +392,42 @@
 
             <div class="keypoint" onclick="openDropdown(this)">
               <div class="lb">
+                <h2>Gramatical Mistakes</h2>
+                <span
+                  style="font-size: 2.5rem"
+                  class="material-symbols-outlined"
+                >
+                  arrow_drop_down
+                </span>
+              </div>
+              <div class="points">
+                <ul>
+                  {% set unique_corrections = corrections|unique %}
+                  {% for item in unique_corrections %}
+                      {% if ' to ' in item %}
+                          {% set parts = item.split(' to ') %}
+                          {% if parts[0].strip()|length > 0 and parts[1].strip()|length > 0 and (parts[0].strip() != '.' and parts[0].strip() != ',') and (parts[1].strip() != '.' and parts[1].strip() != ',') %}
+                              <span>
+                                  <span style="color: red; display: inline-block;">{{ parts[0].strip() }}</span>
+                                  <span style="display: inline-block;"> --to-- </span>
+                                  <span style="color: green; display: inline-block;">{{ parts[1].strip() }}</span>
+                              </span>
+                          {% endif %}
+                      {% endif %}
+                  {% endfor %}
+              
+              
+                  <!-- <li><span>Summary</span></li>
+                  <hr />
+                  <li><span>Summary</span></li>
+                  <hr />
+                  <li><span>Summary</span></li> -->
+                </ul>
+              </div>
+            </div>
+
+            <div class="keypoint" onclick="openDropdown(this)">
+              <div class="lb">
                 <h2>Structure</h2>
                 <span
                   style="font-size: 2.5rem"
@@ -94,7 +443,7 @@
                   <span
                     ><img
                       style="width: 30px; display: inline; margin-top: 5px"
-                      src="{{ url_for('static', filename='found.png') }}"
+                      src="http://localhost:5000/static/found.png"
                       alt=""
                     />
                     {{item}}
@@ -127,7 +476,7 @@
                   <span
                     ><img
                       style="width: 30px; display: inline; margin-top: 5px"
-                      src="{{ url_for('static', filename='found.png') }}"
+                      src="http://localhost:5000/static/found.png"
                       alt=""
                     />
                     {{item}}
@@ -138,7 +487,7 @@
                   <span
                     ><img
                       style="width: 30px; display: inline; margin-top: 5px"
-                      src="{{ url_for('static', filename='notfound.png') }}"
+                      src="http://localhost:5000/static/notfound.png"
                       alt=""
                     />
                     {{item}}
@@ -166,7 +515,7 @@
                   <span
                     ><img
                       style="width: 30px; display: inline; margin-top: 5px"
-                      src="{{ url_for('static', filename='found.png') }}"
+                      src="http://localhost:5000/static/found.png"
                       alt=""
                     />
                     {{item}}
@@ -177,7 +526,7 @@
                   <span
                     ><img
                       style="width: 30px; display: inline; margin-top: 5px"
-                      src="{{ url_for('static', filename='notfound.png') }}"
+                      src="http://localhost:5000/static/notfound.png"
                       alt=""
                     />
                     {{item}}
@@ -277,7 +626,7 @@
 
       <section class="resume">
         <iframe
-          src="{{ url_for('static', filename='uploads/Resume (1).pdf') }}#toolbar=0"
+          src="http://127.0.0.1:5000/static/uploads/{{pdfFileName}}#toolbar=0"
           width="100%"
           height="100%"
           style="border: none"
