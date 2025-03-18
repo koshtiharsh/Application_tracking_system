@@ -1,277 +1,1356 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us - Your Company</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ATS Resume Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      html {
-        height: 100%;
-      }
-
-      body {
-        margin: 0;
-      }
-
-      .bg {
-        animation: slide 3s ease-in-out infinite alternate;
-        background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
-        bottom: 0;
-        left: -50%;
-        opacity: 0.5;
-        position: fixed;
-        right: -50%;
-        top: 0;
-        z-index: -1;
-      }
-
-      .bg2 {
-        animation-direction: alternate-reverse;
-        animation-duration: 4s;
-      }
-
-      .bg3 {
-        animation-duration: 5s;
-      }
-
-      @keyframes slide {
-        0% {
-          transform: translateX(-25%);
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4cc9f0;
+            --secondary: #7209b7;
+            --dark: #03071e;
+            --success: #38b000;
+            --warning: #ffbe0b;
+            --danger: #d00000;
+            --light: #f8f9fa;
+            --grey: #6c757d;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --gradient-primary: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            --gradient-secondary: linear-gradient(135deg, #f72585 0%, #7209b7 100%);
+            --card-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
         }
 
-        100% {
-          transform: translateX(25%);
-        }
-      }
-
-      nav {
-        background-color: #292929;
-        overflow: hidden;
-        color: white;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .company-name {
-        font-family: "Helvetica", sans-serif;
-        font-size: 1.5em;
-        margin-left: 10px;
-      }
-
-      nav a {
-        padding: 10px;
-        text-decoration: none;
-        color: white;
-        transition: background-color 0.2s linear, color 0.2s linear;
-      }
-
-      nav a:hover {
-        background-color: #0d0d0d;
-        color: rgb(243, 76, 76);
-      }
-
-      .container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-      }
-
-      h1 {
-        color: #292929;
-      }
-
-      p {
-        line-height: 1.6;
-        margin-bottom: 20px;
-      }
-
-      footer {
-        background-color: #f8002f;
-        background-image: linear-gradient(326deg, #f8002f 0%, #282828 74%);
-        color: white;
-        padding: 20px;
-        text-align: center;
-        text-decoration: none;
-      }
-
-      footer a {
-        color: white;
-        text-decoration: none;
-        margin: 0 10px;
-      }
-
-      footer a:hover {
-        text-decoration: none;
-      }
-
-      .footer-content {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        color: rgb(255, 255, 255);
-        text-decoration: none;
-      }
-
-      .footer-section {
-        max-width: 300px;
-        margin-bottom: 20px;
-        text-decoration: none;
-      }
-
-      .footer-section h3 {
-        font-size: 1.5em;
-        margin-bottom: 10px;
-        color: #ddd;
-        text-decoration: none;
-      }
-
-      .footer-section p {
-        font-size: 1em;
-        text-decoration: none;
-      }
-
-      .footer-section ul {
-        list-style: none;
-        padding: 0;
-        text-decoration: none;
-      }
-
-      .footer-section ul li {
-        margin-bottom: 8px;
-        list-style: none;
-        text-decoration: none;
-      }
-
-      .social-icons a {
-        margin-right: 10px;
-        text-decoration: none;
-      }
-
-      .footer-bottom {
-        margin-top: 20px;
-        border-top: 1px solid #555;
-        padding-top: 10px;
-        font-size: 0.9em;
-        text-decoration: none;
-      }
-
-      @media only screen and (max-width: 600px) {
-        nav {
-          flex-direction: column;
-          align-items: flex-start;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .company-name {
-          margin-left: 0;
-          margin-bottom: 10px;
+        body {
+            min-height: 100vh;
+            background-color: #f5f7ff;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        nav a {
-          margin-bottom: 5px;
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .animated-bg div {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(67, 97, 238, 0.15);
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+            border-radius: 50%;
+        }
+
+        .animated-bg div:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+            animation-duration: 20s;
+            background: rgba(247, 37, 133, 0.1);
+        }
+
+        .animated-bg div:nth-child(2) {
+            left: 10%;
+            width: 40px;
+            height: 40px;
+            animation-delay: 2s;
+            animation-duration: 15s;
+            background: rgba(58, 12, 163, 0.1);
+        }
+
+        .animated-bg div:nth-child(3) {
+            left: 70%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 4s;
+            animation-duration: 18s;
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        .animated-bg div:nth-child(4) {
+            left: 40%;
+            width: 30px;
+            height: 30px;
+            animation-delay: 0s;
+            animation-duration: 12s;
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .animated-bg div:nth-child(5) {
+            left: 65%;
+            width: 70px;
+            height: 70px;
+            animation-delay: 0s;
+            animation-duration: 25s;
+            background: rgba(114, 9, 183, 0.1);
+        }
+
+        .animated-bg div:nth-child(6) {
+            left: 75%;
+            width: 45px;
+            height: 45px;
+            animation-delay: 3s;
+            animation-duration: 16s;
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        .animated-bg div:nth-child(7) {
+            left: 35%;
+            width: 90px;
+            height: 90px;
+            animation-delay: 7s;
+            animation-duration: 22s;
+            background: rgba(247, 37, 133, 0.1);
+        }
+
+        .animated-bg div:nth-child(8) {
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            animation-delay: 15s;
+            animation-duration: 30s;
+            background: rgba(114, 9, 183, 0.1);
+        }
+
+        .animated-bg div:nth-child(9) {
+            left: 20%;
+            width: 35px;
+            height: 35px;
+            animation-delay: 2s;
+            animation-duration: 20s;
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .animated-bg div:nth-child(10) {
+            left: 85%;
+            width: 75px;
+            height: 75px;
+            animation-delay: 0s;
+            animation-duration: 24s;
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 50%;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header/Navigation */
+        header {
+            background: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            color: var(--primary);
+            background: var(--light);
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+            color: var(--dark);
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 16px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--dark);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.9) 0%, rgba(58, 12, 163, 0.9) 100%), url('/api/placeholder/1200/300') center/cover no-repeat;
+            padding: 80px 0;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23f5f7ff' fill-opacity='1' d='M0,32L48,42.7C96,53,192,75,288,74.7C384,75,480,53,576,42.7C672,32,768,32,864,42.7C960,53,1056,75,1152,80C1248,85,1344,75,1392,69.3L1440,64L1440,100L1392,100C1344,100,1248,100,1152,100C1056,100,960,100,864,100C768,100,672,100,576,100C480,100,384,100,288,100C192,100,96,100,48,100L0,100Z'%3E%3C/path%3E%3C/svg%3E") bottom center/cover no-repeat;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* About Section */
+        .section {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+
+        .section-subtitle {
+            color: var(--grey);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* About Content */
+        .about-content {
+          width: 80%;
+          margin: auto;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            align-items: center;
+            
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100%;
+            height: 100%;
+            border: 5px solid var(--primary);
+            border-radius: var(--border-radius);
+            z-index: -1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .about-text p {
+            color: var(--grey);
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .about-text .signature {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--primary);
+            margin-top: 30px;
+        }
+
+        /* Mission & Vision */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .mission-card, .vision-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .mission-card:hover, .vision-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .mission-card::before, .vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+
+        .mission-card::before {
+            background: var(--gradient-primary);
+        }
+
+        .vision-card::before {
+            background: var(--gradient-secondary);
+        }
+
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mission-card .card-icon {
+            color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .vision-card .card-icon {
+            color: var(--secondary);
+            background: rgba(114, 9, 183, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .card-text {
+            color: var(--grey);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Team Section */
+        .team-section {
+            background-color: #f9faff;
+            position: relative;
+        }
+
+        .team-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23f5f7ff' fill-opacity='1' d='M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,53.3C672,53,768,75,864,75C960,75,1056,53,1152,42.7C1248,32,1344,32,1392,32L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z'%3E%3C/path%3E%3C/svg%3E") top center/cover no-repeat;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .team-card:hover .team-image img {
+            transform: scale(1.05);
+        }
+
+        .team-info {
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .team-name {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .team-position {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .team-bio {
+            color: var(--grey);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Values Section */
+        .values-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+
+        .value-icon {
+            font-size: 30px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            background: rgba(67, 97, 238, 0.1);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .value-card:nth-child(2) .value-icon {
+            color: #3a0ca3;
+            background: rgba(58, 12, 163, 0.1);
+        }
+
+        .value-card:nth-child(3) .value-icon {
+            color: #7209b7;
+            background: rgba(114, 9, 183, 0.1);
+        }
+
+        .value-card:nth-child(4) .value-icon {
+            color: #f72585;
+            background: rgba(247, 37, 133, 0.1);
+        }
+
+        .value-card:nth-child(5) .value-icon {
+            color: #4cc9f0;
+            background: rgba(76, 201, 240, 0.1);
+        }
+
+        .value-card:nth-child(6) .value-icon {
+            color: #4361ee;
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .value-title {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .value-text {
+            color: var(--grey);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.9) 0%, rgba(58, 12, 163, 0.9) 100%), url('/api/placeholder/1200/400') center/cover fixed no-repeat;
+            padding: 100px 0;
+            color: white;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 20px;
+        }
+
+        .stat-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            padding: 80px 0;
+            background: white;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 30px;
+            background: var(--gradient-primary);
+            border-radius: var(--border-radius);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            z-index: 0;
+        }
+
+        .cta-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: var(--primary);
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .footer-content {
-          flex-direction: column;
-          align-items: flex-start;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
-        .footer-section {
-          max-width: 100%;
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+            font-weight: 600;
         }
-      }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a i {
+            font-size: 12px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        li {
+          list-style: none;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-image::before {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: var(--transition);
+                z-index: 100;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .stat-number {
+                font-size: 2.2rem;
+            }
+
+            .team-grid,
+            .values-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .page-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .about-text h3 {
+                font-size: 1.5rem;
+            }
+
+            .cta-title {
+                font-size: 1.8rem;
+            }
+        }
     </style>
-  </head>
+</head>
 
-  <body>
-    <nav>
-      <div class="company-name">Your Company Name</div>
-      <div>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-      </div>
-    </nav>
-    <div class="bg"></div>
-    <div class="bg bg2"></div>
-    <div class="bg bg3"></div>
-
-    <div class="container">
-      <h1>About Us</h1>
-      <p>
-        Welcome to Your Company, where innovation meets excellence. We are
-        dedicated to providing cutting-edge solutions in the field of resume
-        analysis. Our mission is to bridge the gap between job seekers and
-        employers by offering a state-of-the-art platform for analyzing and
-        optimizing resumes.
-      </p>
-
-      <p>
-        At Your Company, we understand the challenges of the job market and the
-        importance of presenting a strong and tailored resume. Our ATS Resume
-        Analyzer is designed to assist job seekers in optimizing their resumes
-        to meet the expectations of Applicant Tracking Systems (ATS) used by
-        employers.
-      </p>
-
-      <p>
-        Our team of experts is passionate about leveraging technology to empower
-        individuals in their career journeys. Whether you are a seasoned
-        professional or a recent graduate, Your Company is here to support you
-        in showcasing your skills and experiences effectively.
-      </p>
-
-      <p>
-        Explore our website to discover the features of our resume analysis tool
-        and take the next step towards career success. Thank you for choosing
-        Your Company for all your resume optimization needs.
-      </p>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
 
+    <!-- Header/Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="logo-text">Resume<span>Analyzer</span></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/about" class="nav-link active">About</a></li>
+             
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="header-container">
+            <h1 class="page-title">About Us</h1>
+            <p class="page-subtitle">Learn more about our mission, our team, and how we're revolutionizing the way job seekers optimize their resumes for ATS systems.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+        <div class="container">
+            <div class="about-content">
+                <!-- <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="Our Story">
+                </div> -->
+                <div class="about-text">
+                  <h3>Our Journey</h3>
+                  <p>Resume Analyzer was created with a simple yet impactful goal: to help job seekers get past the barriers of Applicant Tracking Systems (ATS) and reach real recruiters.</p>
+                  <p>Me, Harsh Koshti, and Prathamesh Gosavi, with the guidance of our mentor, HOD Dr. Sopan Talekar, saw how talented candidates were being filtered out just because their resumes weren’t ATS-friendly. We decided to change that.</p>
+                  <p>What started as an idea quickly turned into a project fueled by research, testing, and constant improvements. We developed AI-driven tools that analyze resumes in real-time, providing actionable insights to boost interview chances.</p>
+                  <p>We believe that job searching shouldn’t be about battling algorithms but about showcasing real skills and experience. That’s why our platform helps candidates create resumes that not only pass ATS scans but also stand out to recruiters.</p>
+                  <p>Throughout our journey, we’ve worked closely with industry professionals and job seekers to refine our system. Their feedback has played a crucial role in shaping Resume Analyzer into a practical and reliable tool.</p>
+                  <p>From optimizing resume formatting to suggesting relevant keywords, our AI adapts to hiring trends, ensuring that users stay ahead in the competitive job market.</p>
+                  <p>Our vision goes beyond resume analysis. We aim to create a complete career support system that helps job seekers with interview preparation, skill development, and personalized career guidance.</p>
+                  <p>As we continue to grow, our focus remains the same—bridging the gap between talent and opportunity while making the hiring process more transparent and fair.</p>
+              
+                  <div class="signature">- Harsh Koshti</div>
+              </div>
+              
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="section" style="background-color: #f9faff;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Mission & Vision</h2>
+                <p class="section-subtitle">What drives us forward and where we're headed</p>
+            </div>
+            <div class="mission-vision">
+                <div class="mission-card">
+                    <div class="card-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="card-title">Our Mission</h3>
+                    <p class="card-text">To level the playing field in the job market by ensuring that every qualified candidate has the opportunity to have their resume seen by human recruiters, regardless of their knowledge of ATS systems or resume optimization techniques.</p>
+                </div>
+                <div class="vision-card">
+                    <div class="card-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="card-title">Our Vision</h3>
+                    <p class="card-text">We envision a future where job seekers are empowered with AI-driven tools that help them present their skills and experiences in the most effective way possible, leading to a more efficient and fair hiring process for everyone involved.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section values-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Core Values</h2>
+                <p class="section-subtitle">The principles that guide our work</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="value-title">Transparency</h3>
+                    <p class="value-text">We believe in full transparency about ATS systems and how they work. No black boxes or hidden algorithms.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="value-title">Accessibility</h3>
+                    <p class="value-text">Advanced resume optimization should be available to everyone, not just those who can afford expensive services.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="value-title">Constant Innovation</h3>
+                    <p class="value-text">We continuously improve our algorithms to stay ahead of evolving ATS technologies and industry trends.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="value-title">Education</h3>
+                    <p class="value-text">Beyond our tools, we're committed to educating job seekers about the modern hiring process.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="value-title">User-Centered</h3>
+                    <p class="value-text">Everything we build starts with understanding the real needs of job seekers in today's competitive market.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="value-title">Data Privacy</h3>
+                    <p class="value-text">We maintain the highest standards of data protection and privacy for all our users' personal information.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Meet Our Team</h2>
+                <p class="section-subtitle">The talented people behind our success</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    
+                    <div class="team-info">
+                        <h3 class="team-name">Harsh Koshti</h3>
+                        <p class="team-position">Student</p>
+                        <p class="team-bio">Worked as A Backend Developer In ATS </p>
+                        <div class="team-social">
+                            <a href="https://www.linkedin.com/in/harsh-koshti-288634203/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/koshtiharsh/" class="social-icon"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card">
+                    
+                  <div class="team-info">
+                      <h3 class="team-name">Prathamesh Gosavi</h3>
+                      <p class="team-position">Student</p>
+                      <p class="team-bio">Worked as A Frontend Developer In ATS </p>
+                      <div class="team-social">
+                          <a href="https://www.linkedin.com/in/prathamesh-gosavi-552b13214/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                          <a href="https://github.com/Pratham2312" class="social-icon"><i class="fab fa-github"></i></a>
+                      </div>
+                  </div>
+              </div>
+              <div class="team-card">
+                    
+                <div class="team-info">
+                    <h3 class="team-name">Dr. Sopan Talekar</h3>
+                    <p class="team-position">Mentor</p>
+                    <p class="team-bio">Mentor In ATS Project </p>
+                    <div class="team-social">
+                        <a href="https://www.linkedin.com/in/dr-sopan-a-talekar-phd-86778078/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <!-- <a href="https://github.com/koshtiharsh/" class="social-icon"><i class="fab fa-github"></i></a> -->
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <!-- <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Happy Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="stat-number">125K+</div>
+                    <div class="stat-label">Resumes Analyzed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="stat-number">18K+</div>
+                    <div class="stat-label">Job Interviews</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <div class="stat-number">40+</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-container">
+                <h2 class="cta-title">Ready to Optimize Your Resume?</h2>
+                <p class="cta-text">Get started today and increase your chances of landing that dream interview with our AI-powered resume analysis and optimization tools.</p>
+                <a href="/" class="cta-btn">Get Started Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3>About Us</h3>
-          <p>
-            Your Company is a leading provider of innovative solutions in the
-            field of resume analysis. We strive to help job seekers and
-            employers connect effectively.
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3>Connect With Us</h3>
-          <p>
-            Follow us on social media for the latest updates and job-related
-            tips:
-          </p>
-          <div class="social-icons">
-            <a href="#" target="_blank"
-              ><img src="facebook-icon.png" alt="Facebook"
-            /></a>
-            <a href="#" target="_blank"
-              ><img src="twitter-icon.png" alt="Twitter"
-            /></a>
-            <a href="#" target="_blank"
-              ><img src="linkedin-icon.png" alt="LinkedIn"
-            /></a>
+      <div class="footer-container">
+          <div class="footer-content">
+              <div class="footer-column">
+                  <h3>About Us</h3>
+                  <p class="footer-description">We're dedicated to helping job seekers optimize their resumes for ATS systems and increase their chances of landing interviews with our AI-powered tools.</p>
+                  <!-- <div class="social-links">
+                      <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                      <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                      <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                      <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                  </div> -->
+              </div>
+              <div class="footer-column">
+                  <h3>Quick Links</h3>
+                  <ul class="footer-links">
+                      <li><a href="/"><i class="fas fa-chevron-right"></i> Home</a></li>
+                      <!-- <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                      <li><a href="#process"><i class="fas fa-chevron-right"></i> How It Works</a></li> -->
+                      <li><a href="/about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                      <!-- <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li> -->
+                  </ul>
+              </div>
+              <div class="footer-column">
+                  <h3>External Important Resources</h3>
+                  <ul class="footer-links">
+                      <li><a href="https://flowcv.com/" target="_blank"><i class="fas fa-chevron-right"></i> Resume Templates</a></li>
+                      <li><a href="https://www.themuse.com/advice/43-resume-tips-that-will-help-you-get-hired" target="_blank"><i class="fas fa-chevron-right"></i> Resume Tips</a></li>
+                      <li><a href="https://novoresume.com/career-blog/job-hunt"><i class="fas fa-chevron-right" target="_blank"></i> Job Search Guide</a></li>
+                  </ul>
+              </div>
+              <div class="footer-column">
+                  <h3>Contact Info</h3>
+                  <ul class="footer-links">
+                      <li><a href="#"><i class="fas fa-map-marker-alt"></i> MVPS KBT College Of Engineering Nashik</a></li>
+                      <li><a href="mailto:info@resumeanalyzer.com"><i class="fas fa-envelope"></i> kbtug21102@kbtcoe.org</a></li>
+                      <!-- <li><a href="tel:+11234567890"><i class="fas fa-phone-alt"></i> +1 (123) 456-7890</a></li> -->
+                      <!-- <li><a href="#"><i class="fas fa-headset"></i> Customer Support</a></li> -->
+                  </ul>
+              </div>
           </div>
-        </div>
+          <div class="footer-bottom">
+              <p>&copy; 2025 Resume Analyzer. All rights reserved.</p>
+              <p>Terms of Service | Privacy Policy | Cookie Policy</p>
+          </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2023 Your Company. All rights reserved.</p>
-      </div>
-    </footer>
-  </body>
+  </footer>
+  
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Animate Stats on Scroll
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let animated = false;
+
+        function animateStats() {
+            if (animated) return;
+            
+            const stats = [
+                { value: 50000, suffix: 'K+' },
+                { value: 125000, suffix: 'K+' },
+                { value: 18000, suffix: 'K+' },
+                { value: 40, suffix: '+' }
+            ];
+            
+            statNumbers.forEach((stat, index) => {
+                let startValue = 0;
+                const endValue = stats[index].value;
+                const suffix = stats[index].suffix;
+                const duration = 2000;
+                const increment = endValue / (duration / 20);
+                
+                const counter = setInterval(() => {
+                    startValue += increment;
+                    if (startValue > endValue) {
+                        startValue = endValue;
+                        clearInterval(counter);
+                    }
+                    
+                    // Format the number
+                    let formattedValue;
+                    if (endValue >= 1000) {
+                        formattedValue = Math.floor(startValue / 1000) + suffix;
+                    } else {
+                        formattedValue = Math.floor(startValue) + suffix;
+                    }
+                    
+                    stat.textContent = formattedValue;
+                }, 20);
+            });
+            
+            animated = true;
+        }
+
+        // Check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Trigger animation when stats section comes into view
+        document.addEventListener('scroll', () => {
+            const statsSection = document.querySelector('.stats-section');
+            if (isInViewport(statsSection)) {
+                animateStats();
+            }
+        });
+
+        // Check on load as well
+        window.addEventListener('load', () => {
+            const statsSection = document.querySelector('.stats-section');
+            if (isInViewport(statsSection)) {
+                animateStats();
+            }
+        });
+    </script>
+</body>
+
 </html>
